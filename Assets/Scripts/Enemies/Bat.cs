@@ -44,8 +44,13 @@ public class Bat : MonoBehaviour
       player.GetComponent<PlayerController>().Knockback(direction);
       //Debug.DrawRay(player.position, direction * 5, Color.red, 3);
     } else if (other.gameObject.CompareTag("Bullet")) {
-      flashSprite.Flash();
+      Damage();
+    }
+  }
 
+  public void Damage()
+  {
+      flashSprite.Flash();
       hits -= 1;
       if (hits <= 0) 
       {
@@ -54,6 +59,5 @@ public class Bat : MonoBehaviour
         Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
       }
-    }
   }
 }

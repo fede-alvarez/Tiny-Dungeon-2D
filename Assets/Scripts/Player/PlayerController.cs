@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+  [SerializeField] private Transform arrowTransform;
   [SerializeField] private LivesContainer livesContainer;
   [SerializeField] private SpriteRenderer spriteRenderer;
   [SerializeField] private Transform projectilePrefab;
+  [SerializeField] private Transform bombPrefab;
   [SerializeField] private float movementSpeed = 2.0f;
   [SerializeField] private float fireRate = 0.2f;
   [SerializeField] private float invulnerableTime = 0.4f;
@@ -16,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
   private Animator animator;
   private bool isKnocked = false;
+  private bool isBombPressed = false;
   private Vector2 knockDirection;
 
   private float nextFire;
@@ -36,6 +39,19 @@ public class PlayerController : MonoBehaviour
 
     inputDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     secondStickDirection = new Vector2(Input.GetAxisRaw("Horizontal R Stick"), Input.GetAxisRaw("Vertical R Stick"));
+
+    isBombPressed = Input.GetKey(KeyCode.Space);
+    arrowTransform.gameObject.SetActive(isBombPressed);
+
+    if (Input.GetKeyUp(KeyCode.Space))
+    {
+        Transform go = Instantiate(bombPrefab, transform.position + new Vector3(0,0.5f), Quaternion.identity);
+        go.right = inputDirection.normalized;
+        go.GetComponent<Bomb>().Shoot();
+    }
+
+    if (inputDirection.magnitude > 0)
+      arrowTransform.right = inputDirection.normalized;
 
     if (inputDirection.x > 0)
       spriteRenderer.flipX = false;

@@ -5,13 +5,13 @@ public class LivesContainer : MonoBehaviour
 {
     [SerializeField] private List<Life> lives;
 
-    private int currentLife = 2;
+    private int currentLife = 3;
     private int totalHealth;
     private bool isDead = false;
 
     private void Start() 
     {
-        totalHealth = 6;
+        totalHealth = 8;
         ActivateLife(currentLife);
     }
 
@@ -37,7 +37,7 @@ public class LivesContainer : MonoBehaviour
 
     private void ActivateLife(int lifeIndex)
     {
-        lives[lifeIndex].TriggerLifeActivator();
+        lives[ lifeIndex ].TriggerLifeActivator();
     }
 
     public bool IsDead()

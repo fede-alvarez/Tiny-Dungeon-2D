@@ -4,6 +4,7 @@ public class Life : MonoBehaviour
 {
     private int health = 2;
     private int hits = 0;
+
     private bool isCurrentLife = false;
 
     private Animator anim;
@@ -30,7 +31,8 @@ public class Life : MonoBehaviour
     {
         isCurrentLife = !isCurrentLife;
 
-        if (isCurrentLife)
+        if (isCurrentLife) {
             anim.SetTrigger("Current");
+        }
     }
 }
